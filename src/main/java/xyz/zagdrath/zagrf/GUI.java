@@ -52,10 +52,10 @@ public class GUI {
 
         if (unitsChoice.getSelectedItem() == "mHz") {
             Math.units = Frequency.mHz;
-            System.out.println(unitsChoice.getSelectedItem());
+            // System.out.println(unitsChoice.getSelectedItem());
         } else if (unitsChoice.getSelectedItem() == "Hz") {
             Math.units = Frequency.Hz;
-            System.out.println(unitsChoice.getSelectedItem());
+            // System.out.println(unitsChoice.getSelectedItem());
         } else if (unitsChoice.getSelectedItem() == "kHz") {
             Math.units = Frequency.kHz;
         } else if (unitsChoice.getSelectedItem() == "MHz") {

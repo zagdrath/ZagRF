@@ -9,7 +9,8 @@ public class Math {
     public static double units;
 
     public static double freqToPeriod(double frequency) {
-        period = 1 / (frequency * units);
+        // period = 1 / (frequency * units);
+        period = 1 / frequency;
         return period;
     }
 
