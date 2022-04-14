@@ -7,13 +7,13 @@ package xyz.zagdrath.zagrf;
 // Java imports
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import xyz.zagdrath.zagrf.units.Frequency;
 import xyz.zagdrath.zagrf.Math;
 
 public class GUI {
-
-    public static String[] freqUnits = { "mHz", "Hz", "kHz", "MHz", "GHz", "THz" };
 
     public static void main(String[] args) {
         // Main window
@@ -34,25 +34,55 @@ public class GUI {
         // Frequency to period panel
         JPanel freqToPeriodPanel = new JPanel();
 
+        /***************************/
+        /*** Frequency selection ***/
+        /***************************/
+
         JLabel freqLabel = new JLabel("Frequency");
-        JTextField freqField = new JTextField("0.0", 10);
-        double freqFieldInput = Double.parseDouble(freqField.getText());
+        JTextField freqChoice = new JTextField("0.0", 10);
+        double currentFreq = Double.parseDouble(freqChoice.getText());
+
+        /***********************/
+        /*** Units selection ***/
+        /***********************/
 
         JLabel unitsLabel = new JLabel("Units");
-        JComboBox freqToPeriodComboBox = new JComboBox(freqUnits);
+        String[] freqUnits = { "mHz", "Hz", "kHz", "MHz", "GHz", "THz" };
+        JComboBox unitsChoice = new JComboBox(freqUnits);
+        String currentUnits = (String) unitsChoice.getSelectedItem();
+
+        if (currentUnits == "mHz") {
+            Math.units = Frequency.mHz;
+        } else if (currentUnits == "Hz") {
+            Math.units = Frequency.Hz;
+        } else if (currentUnits == "kHz") {
+            Math.units = Frequency.kHz;
+        } else if (currentUnits == "MHz") {
+            Math.units = Frequency.MHz;
+        } else if (currentUnits == "GHz") {
+            Math.units = Frequency.GHz;
+        } else if (currentUnits == "THz") {
+            Math.units = Frequency.THz;
+        }
+
+        /**********************/
+        /*** Perform action ***/
+        /**********************/
 
         JButton freqToPeriodButton = new JButton("Go");
+        freqToPeriodButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Math.freqToPeriod(currentFreq);
+            }
+        });
 
         JTextField periodField = new JTextField("0.0", 10);
 
         freqToPeriodPanel.add(freqLabel);
-        freqToPeriodPanel.add(freqField);
-
+        freqToPeriodPanel.add(freqChoice);
         freqToPeriodPanel.add(unitsLabel);
-        freqToPeriodPanel.add(freqToPeriodComboBox);
-
+        freqToPeriodPanel.add(unitsChoice);
         freqToPeriodPanel.add(freqToPeriodButton);
-
         freqToPeriodPanel.add(periodField);
 
         // Add stuff to main window
