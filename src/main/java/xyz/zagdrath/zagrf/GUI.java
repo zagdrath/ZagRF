@@ -49,19 +49,20 @@ public class GUI {
         JLabel unitsLabel = new JLabel("Units");
         String[] freqUnits = { "mHz", "Hz", "kHz", "MHz", "GHz", "THz" };
         JComboBox unitsChoice = new JComboBox(freqUnits);
-        String currentUnits = (String) unitsChoice.getSelectedItem();
 
-        if (currentUnits == "mHz") {
+        if (unitsChoice.getSelectedItem() == "mHz") {
             Math.units = Frequency.mHz;
-        } else if (currentUnits == "Hz") {
+            System.out.println(unitsChoice.getSelectedItem());
+        } else if (unitsChoice.getSelectedItem() == "Hz") {
             Math.units = Frequency.Hz;
-        } else if (currentUnits == "kHz") {
+            System.out.println(unitsChoice.getSelectedItem());
+        } else if (unitsChoice.getSelectedItem() == "kHz") {
             Math.units = Frequency.kHz;
-        } else if (currentUnits == "MHz") {
+        } else if (unitsChoice.getSelectedItem() == "MHz") {
             Math.units = Frequency.MHz;
-        } else if (currentUnits == "GHz") {
+        } else if (unitsChoice.getSelectedItem() == "GHz") {
             Math.units = Frequency.GHz;
-        } else if (currentUnits == "THz") {
+        } else if (unitsChoice.getSelectedItem() == "THz") {
             Math.units = Frequency.THz;
         }
 
@@ -82,6 +83,7 @@ public class GUI {
         freqToPeriodButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 periodField.setValue(Math.freqToPeriod(currentFreq));
+                // System.out.print(unitsChoice.getSelectedItem());
             }
         });
 
@@ -103,6 +105,8 @@ public class GUI {
 
         // Math.freqToPeriod(1, MHz);
 
-        System.out.println(Frequency.MHz);
+        System.out.println(Math.freqToPeriod(currentFreq));
+
+        System.out.println(unitsChoice.getSelectedItem());
     }
 }
