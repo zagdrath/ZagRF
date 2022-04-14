@@ -6,11 +6,9 @@ package xyz.zagdrath.zagrf;
 
 public class Math {
     public static double period;
-    public static double units;
 
-    public static double freqToPeriod(double frequency) {
-        // period = 1 / (frequency * units);
-        period = 1 / frequency;
+    public static double freqToPeriod(double frequency, double units) {
+        period = 1 / (frequency * units);
         return period;
     }
 
