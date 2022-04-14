@@ -4,11 +4,8 @@
 
 package xyz.zagdrath.zagrf;
 
-import xyz.zagdrath.zagrf.GUI;
-import xyz.zagdrath.zagrf.units.Frequency;
-
 public class Math {
-    private static double period;
+    public static double period;
     public static double units;
 
     public static double freqToPeriod(double frequency) {

@@ -11,7 +11,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import xyz.zagdrath.zagrf.units.Frequency;
-import xyz.zagdrath.zagrf.Math;
 
 public class GUI {
 
@@ -39,8 +38,9 @@ public class GUI {
         /***************************/
 
         JLabel freqLabel = new JLabel("Frequency");
-        JTextField freqChoice = new JTextField("0.0", 10);
-        double currentFreq = Double.parseDouble(freqChoice.getText());
+        JFormattedTextField freqField = new JFormattedTextField(0.0);
+        double currentFreq = (double) freqField.getValue();
+        freqField.setColumns(8);
 
         /***********************/
         /*** Units selection ***/
@@ -65,6 +65,15 @@ public class GUI {
             Math.units = Frequency.THz;
         }
 
+        /*********************/
+        /*** Period output ***/
+        /*********************/
+
+        JLabel periodLabel = new JLabel("Period");
+        JFormattedTextField periodField = new JFormattedTextField(0.0);
+        periodField.setEditable(false);
+        periodField.setColumns(8);
+
         /**********************/
         /*** Perform action ***/
         /**********************/
@@ -72,18 +81,20 @@ public class GUI {
         JButton freqToPeriodButton = new JButton("Go");
         freqToPeriodButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Math.freqToPeriod(currentFreq);
+                periodField.setValue(Math.freqToPeriod(currentFreq));
             }
         });
 
-        JTextField periodField = new JTextField("0.0", 10);
-
         freqToPeriodPanel.add(freqLabel);
-        freqToPeriodPanel.add(freqChoice);
+        freqToPeriodPanel.add(freqField);
+
         freqToPeriodPanel.add(unitsLabel);
         freqToPeriodPanel.add(unitsChoice);
-        freqToPeriodPanel.add(freqToPeriodButton);
+
+        freqToPeriodPanel.add(periodLabel);
         freqToPeriodPanel.add(periodField);
+
+        freqToPeriodPanel.add(freqToPeriodButton);
 
         // Add stuff to main window
         mainWindow.getContentPane().add(BorderLayout.CENTER, freqToPeriodPanel);
