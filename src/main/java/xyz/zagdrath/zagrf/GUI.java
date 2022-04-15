@@ -7,12 +7,16 @@ package xyz.zagdrath.zagrf;
 // Java imports
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.*;
+import javax.swing.event.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import xyz.zagdrath.zagrf.units.Frequency;
 
 public class GUI {
+
+    public static double units;
 
     public static void main(String[] args) {
         // Main window
@@ -22,11 +26,20 @@ public class GUI {
 
         // Menu bar
         JMenuBar menuBar = new JMenuBar();
-        JMenu menuFile = new JMenu("File");
+
+        JMenu fileMenu = new JMenu("File");
+        JMenuItem quitItem = new JMenuItem("Quit");
+        fileMenu.setMnemonic('F');
+        fileMenu.add(quitItem);
+
+        quitItem.setMnemonic('Q');
+        quitItem.addActionListener(new QuitAction());
+        quitItem.setAccelerator(KeyStroke.getKeyStroke("control Q"));
+
         JMenu menuEdit = new JMenu("Edit");
         JMenu menuView = new JMenu("View");
 
-        menuBar.add(menuFile);
+        menuBar.add(fileMenu);
         menuBar.add(menuEdit);
         menuBar.add(menuView);
 
@@ -46,7 +59,7 @@ public class GUI {
         /***********************/
 
         JLabel unitsLabel = new JLabel("Units");
-        String[] freqUnits = { "mHz", "Hz", "kHz", "MHz", "GHz", "THz" };
+        String[] freqUnits = { "mHz", "Hz", "kHz", "MHz", "GHz" };
         JComboBox unitsChoice = new JComboBox(freqUnits);
 
         /*********************/
@@ -62,13 +75,20 @@ public class GUI {
         /*** Perform action ***/
         /**********************/
 
-        double units;
-
         JButton freqToPeriodButton = new JButton("Go");
         freqToPeriodButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                periodField.setValue(Math.freqToPeriod((double) freqField.getValue(), units));
-                // System.out.print(unitsChoice.getSelectedItem());
+                if (unitsChoice.getSelectedItem() == freqUnits[0]) {
+                    periodField.setValue(Math.freqToPeriod((double) freqField.getValue(), Frequency.mHz));
+                } else if (unitsChoice.getSelectedItem() == (freqUnits[1])) {
+                    periodField.setValue(Math.freqToPeriod((double) freqField.getValue(), Frequency.Hz));
+                } else if (unitsChoice.getSelectedItem() == (freqUnits[2])) {
+                    periodField.setValue(Math.freqToPeriod((double) freqField.getValue(), Frequency.kHz));
+                } else if (unitsChoice.getSelectedItem() == (freqUnits[3])) {
+                    periodField.setValue(Math.freqToPeriod((double) freqField.getValue(), Frequency.MHz));
+                } else if (unitsChoice.getSelectedItem() == (freqUnits[4])) {
+                    periodField.setValue(Math.freqToPeriod((double) freqField.getValue(), Frequency.GHz));
+                }
             }
         });
 
@@ -93,32 +113,16 @@ public class GUI {
         System.out.println(Math.freqToPeriod((double) freqField.getValue(), 0));
 
         // System.out.println(unitsChoice.getSelectedItem());
+    }
 
-        // More units selections
-        while (true) {
-            if (unitsChoice.getSelectedItem() == freqUnits[0]) {
-                units = Frequency.mHz;
-            }
+}
 
-            if (unitsChoice.getSelectedItem() == (freqUnits[1])) {
-                units = Frequency.Hz;
-            }
+/********************/
+/*** Util classes ***/
+/********************/
 
-            if (unitsChoice.getSelectedItem() == (freqUnits[2])) {
-                units = Frequency.kHz;
-            }
-
-            if (unitsChoice.getSelectedItem() == (freqUnits[3])) {
-                units = Frequency.MHz;
-            }
-
-            if (unitsChoice.getSelectedItem() == (freqUnits[4])) {
-                units = Frequency.GHz;
-            }
-
-            if (unitsChoice.getSelectedItem() == (freqUnits[5])) {
-                units = Frequency.THz;
-            }
-        }
+class QuitAction implements ActionListener {
+    public void actionPerformed(ActionEvent e) {
+        System.exit(0); // Terminate the program.
     }
 }

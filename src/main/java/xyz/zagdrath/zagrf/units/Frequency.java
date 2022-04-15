@@ -13,7 +13,7 @@ public interface Frequency {
     public static final double mHz = Math.pow(10.0, 3.0 * -1.0);
 
     // Hertz
-    public static final double Hz = Math.pow(10.0, 0.0); 
+    public static final double Hz = Math.pow(10.0, 0.0);
 
     // Kilohertz
     public static final double kHz = Math.pow(10.0, 3.0);
@@ -23,7 +23,4 @@ public interface Frequency {
 
     // Gigahertz
     public static final double GHz = Math.pow(10.0, 9.0);
-
-    // Terahertz
-    public static final double THz = Math.pow(10.0, 12.0);
 }
